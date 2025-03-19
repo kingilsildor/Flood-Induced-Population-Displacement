@@ -1,0 +1,8 @@
+cartopy
+joblib
+geopy
+geopandas
+contextily
+pandas
+numpy
+matplotlib
