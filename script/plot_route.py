@@ -57,11 +57,16 @@ def create_locations_gdf(locations_df) -> tuple:
     locations_gdf = locations_gdf.to_crs(epsg=3857)
 
     location_type_colors = {
-        "camp": "green",
         "flood_zone": "blue",
         "town": "red",
+        "camp": "green",
+        "temple": "purple",
     }
     locations_gdf["color"] = locations_gdf["location_type"].map(location_type_colors)
+    # Overrite the camp location to display them as temples
+    locations_gdf.loc[
+        locations_gdf["#name"].str.contains("temple", case=False, na=False), "color"
+    ] = location_type_colors["temple"]
 
     return locations_gdf, location_dict, location_type_colors
 
@@ -101,6 +106,7 @@ def plot_route(edges_gdf, locations_gdf, location_type_colors) -> None:
     - locations_gdf (gpd.GeoDataFrame): The locations GeoDataFrame
     - location_type_colors (dict): A dictionary mapping location types to colors
     """
+    location_counts = locations_gdf["color"].value_counts().to_dict()
     _, ax = plt.subplots(figsize=FIG_SIZE, dpi=FIG_DPI)
 
     edges_gdf.plot(ax=ax, color="black", linewidth=1, label="Edges")
@@ -119,7 +125,7 @@ def plot_route(edges_gdf, locations_gdf, location_type_colors) -> None:
             [0],
             marker="o",
             color="w",
-            label=loc_type,
+            label=f"{loc_type} ({location_counts[color]})",
             markerfacecolor=color,
             markersize=10,
         )
@@ -129,6 +135,7 @@ def plot_route(edges_gdf, locations_gdf, location_type_colors) -> None:
 
     plt.title("Fleeing Routes around the Sittaung River, Toungoo Township Myanmar")
     plt.tight_layout()
+    plt.savefig("results/route_plot.png", dpi=300)
     plt.show()
 
 
@@ -143,3 +150,7 @@ def create_route_plot() -> None:
     )
     edges_gdf = create_edges_gdf(location_dict, edges_df)
     plot_route(edges_gdf, locations_gdf, location_type_colors)
+
+
+if __name__ == "__main__":
+    create_route_plot()
