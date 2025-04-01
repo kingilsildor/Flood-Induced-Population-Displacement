@@ -1,37 +1,9 @@
 import contextily as ctx
 import geopandas as gpd
 import matplotlib.pyplot as plt
-import pandas as pd
 from shapely.geometry import LineString
-from src.config_file import FIG_DPI, FIG_SIZE, PATH
-
-
-def create_locations_df() -> pd.DataFrame:
-    """
-    Read the locations.csv file and return a pandas DataFrame
-
-    Returns
-    -------
-    - pd.DataFrame: The locations DataFrame
-    """
-    locations_df = pd.read_csv(PATH + "input_csv/locations.csv")
-    return locations_df
-
-
-def create_edges_df() -> pd.DataFrame:
-    """
-    Read the routes.csv file and return a pandas DataFrame
-
-    Returns
-    -------
-    - pd.DataFrame: The edges DataFrame
-    """
-    edges_df = pd.read_csv(
-        PATH + "input_csv/routes.csv",
-        header=None,
-        names=["location_1", "location_2", "distance (km)"],
-    )
-    return edges_df
+from src.config_file import FIG_DPI, FIG_SIZE
+from src.get_files import get_locations, get_routes
 
 
 def create_locations_gdf(locations_df) -> tuple:
@@ -143,8 +115,8 @@ def create_route_plot() -> None:
     """
     Create a plot of the fleeing routes around the given locations
     """
-    locations_df = create_locations_df()
-    edges_df = create_edges_df()
+    locations_df = get_locations()
+    edges_df = get_routes()
     locations_gdf, location_dict, location_type_colors = create_locations_gdf(
         locations_df
     )

@@ -28,7 +28,7 @@ def plot_water_level(df: pd.DataFrame, danger_level: int, x: int, title: str) ->
         "The DataFrame should contain the 'Water Level Classification' column."
     )
 
-    fig, ax1 = plt.subplots(figsize=(FIG_SIZE), dpi=FIG_DPI)
+    fig, ax1 = plt.subplots(figsize=(FIG_SIZE))
 
     # Water Level
     ax1.plot(
@@ -67,4 +67,8 @@ def plot_water_level(df: pd.DataFrame, danger_level: int, x: int, title: str) ->
     fig.tight_layout()
     plt.title(title)
     fig.legend(loc="upper right", bbox_to_anchor=(0.9, 0.9))
+
+    plt.savefig(f"results/water_level_plot.png", dpi=FIG_DPI, bbox_inches="tight")
     plt.show()
+
+
