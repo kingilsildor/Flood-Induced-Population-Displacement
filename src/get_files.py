@@ -1,10 +1,13 @@
 import pandas as pd
-from src.config_file import PATH
 
 
-def get_locations() -> pd.DataFrame:
+def get_locations(PATH: str) -> pd.DataFrame:
     """
     Get the location data from the CSV file.
+
+    Params
+    ------
+    - PATH (str): The path to the CSV file containing location data.
 
     Returns
     -------
@@ -14,9 +17,13 @@ def get_locations() -> pd.DataFrame:
     return location_df
 
 
-def get_routes() -> pd.DataFrame:
+def get_routes(PATH: str) -> pd.DataFrame:
     """
     Read the routes.csv file and return a pandas DataFrame
+
+    Params
+    ------
+    - PATH (str): The path to the CSV file containing route data.
 
     Returns
     -------

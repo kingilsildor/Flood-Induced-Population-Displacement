@@ -1,8 +1,8 @@
-cartopy
-joblib
-geopy
-geopandas
-contextily
-pandas
-numpy
-matplotlib
+cartopy~=0.24.1
+joblib~=1.4.2
+geopy~=2.4.1
+geopandas~=1.0.1
+contextily~=1.6.2
+pandas~=2.2.3
+numpy~=2.2.6
+matplotlib~=3.10.1

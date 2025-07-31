@@ -1,10 +1,16 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.ticker import MaxNLocator
-from src.config_file import FIG_DPI, FIG_SIZE
 
 
-def plot_water_level(df: pd.DataFrame, danger_level: int, x: int, title: str) -> None:
+def plot_water_level(
+    df: pd.DataFrame,
+    danger_level: int,
+    x: int,
+    title: str,
+    FIG_DPI: int,
+    FIG_SIZE: tuple,
+) -> None:
     """
     Plot the water level and its classification.
     Note: The DataFrame should contain the following columns:
@@ -18,6 +24,8 @@ def plot_water_level(df: pd.DataFrame, danger_level: int, x: int, title: str) ->
     - danger_level (int): The danger level of the water level.
     - x (int): The number of classes to classify the water level.
     - title (str): The title of the plot.
+    - FIG_DPI (int): The DPI for the figure.
+    - FIG_SIZE (tuple): The size of the figure in inches (width, height).
 
     """
     assert "Day" in df.columns, "The DataFrame should contain the 'Day' column."
@@ -68,7 +76,5 @@ def plot_water_level(df: pd.DataFrame, danger_level: int, x: int, title: str) ->
     plt.title(title)
     fig.legend(loc="upper right", bbox_to_anchor=(0.9, 0.9))
 
-    plt.savefig(f"results/water_level_plot.png", dpi=FIG_DPI, bbox_inches="tight")
+    plt.savefig("plots/water_level_plot.png", dpi=FIG_DPI, bbox_inches="tight")
     plt.show()
-
-
