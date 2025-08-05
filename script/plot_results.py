@@ -1,8 +1,9 @@
 import math
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import matplotlib.pyplot as plt
 
 
 def _create_file_path(
@@ -196,68 +197,80 @@ def camp_displacement(
     df_labels: list,
     daytick_labels: list,
     N_camps: int = 8,
-    camp: bool = True,
+    is_camp: bool = True,
     show_plot: bool = False,
     results_dir: str = "plots",
 ) -> None:
-    nrows = 2
-    ncols = math.ceil(N_camps / 2)
+    """
+    Plot the average number of displaced individuals per camp over time.
 
-    fig, axs = plt.subplots(nrows, ncols, figsize=(5 * ncols, 5 * nrows))
-    axs = axs.flatten() if N_camps > 1 else [axs]
+    Params:
+    ---------
+    - days (list): List of days corresponding to the x-axis.
+    - dfs (list of pd.DataFrame): List of DataFrames containing displacement data.
+    - df_labels (list): Labels for each DataFrame in the plot.
+    - daytick_labels (list): Labels for the x-axis ticks.
+    - N_camps (int): Number of camps to consider. Default is 8.
+    - is_camp (bool): Whether to plot per camp or not. Default is True.
+    - show_plot (bool): Whether to display the plot immediately. Default is False.
+    - results_dir (str): Directory to save the plot PNG file. Default is "plots".
+    """
+    nrows = 2
+    ncols = math.ceil(N_camps / nrows)
+    fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=(20, 10))
+    axes = axes.flatten() if nrows * ncols > 1 else [axes]
 
     for i in range(N_camps):
-        ax = axs[i]
-
-        for _, (df, label) in enumerate(zip(dfs, df_labels)):
-            if camp:
+        ax = axes[i]
+        for df, label in zip(dfs, df_labels):
+            if is_camp:
                 camp_col = f"Camp_{i + 1} sim"
                 std_col = f"Camp_{i + 1} sim (std)"
             else:
                 camp_col = f"Temple_{i + 1} sim"
                 std_col = f"Temple_{i + 1} sim (std)"
 
-            data = np.array(df[camp_col])
-            std = np.array(df[std_col])
+            data = df[camp_col].values
+            std = df[std_col].values
 
-            ax.fill_betweenx(
+            ax.fill_between(
                 days,
                 data - std,
                 data + std,
-                alpha=0.15,
+                alpha=0.2,
             )
-            ax.plot(data, days, label=label)
+            ax.plot(days, data, label=label)
 
-        ax.set_title(f"Camp {i + 1}" if camp else f"Temple {i + 1}")
-        ax.legend(fontsize=8)
+            ax.set_title(
+                f"Camp {i + 1}" if is_camp else f"Temple {i + 1}",
+                fontsize=15,
+                fontweight="bold",
+            )
 
-        ax.set_yticks(np.arange(len(daytick_labels)))
-        ax.set_yticklabels(daytick_labels, fontsize=10)
-        if i % ncols == 0:
-            ax.set_ylabel("Days")
-        else:
-            ax.set_yticks([])
+            ax.legend(
+                fontsize=10,
+                loc="lower right",
+                prop={"weight": "bold"},
+            )
 
-        ax.set_xscale("log")
-        ax.set_xlim(10**-1, 10**4)
+            ax.set_xticks(np.arange(len(daytick_labels)))
+            ax.set_xticklabels(daytick_labels, fontsize=10, rotation=45, ha="right")
 
-    for j in range(N_camps, nrows * ncols):
-        fig.delaxes(axs[j])
+            ax.set_yscale("log")
+            ax.set_ylim(10**-1, 3 * 10**3)  # Set y-axis limits for better visibility
 
-    for row in range(nrows):
-        if row * ncols < N_camps:
-            middle_col = ncols // 2
-            middle_idx = row * ncols + middle_col
-            if middle_idx < len(axs) and middle_idx < N_camps:
-                axs[middle_idx if not camp else middle_idx - 1].set_xlabel(
-                    "Average Amount of Displaced Individuals at a given location"
-                )
+    label_size = 25
+    fig.supxlabel("Days", fontsize=label_size)
+    fig.supylabel(
+        "Average Amount of Displaced Individuals at a given location",
+        fontsize=label_size - 5,
+        x=0.01,  # Adjust x position for better visibility
+    )
 
-    plt.subplots_adjust(wspace=0, hspace=0.3)
     plt.tight_layout()
 
     if show_plot:
         plt.show()
     else:
-        plt.savefig(f"{results_dir}/camp_over_time_{camp}.png", dpi=300)
+        plt.savefig(f"{results_dir}/camp_over_time_{is_camp}.png", dpi=500)
         plt.close()

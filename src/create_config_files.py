@@ -298,19 +298,19 @@ def _create_source_data_files_for_locations(
             data=[["2024-09-08", 0], ["2024-09-14", 0], ["2024-09-30", 0]],
         )
 
-        if "camp" in location.lower():
+        if "camps" in location.lower():
             template_df.loc[1, "Displacement"] = displacement_camp
             template_df.loc[2, "Displacement"] = int(
                 displacement_camp * fraction_stays_in_camp
             )
 
-        if "temple" in location.lower():
+        if "temples" in location.lower():
             template_df.loc[1, "Displacement"] = displacement_temple
             template_df.loc[2, "Displacement"] = int(
                 displacement_temple * fraction_stays_in_camp
             )
 
-        if "flood_zone" in location.lower() and flood_displacement:
+        if "flood_zones" in location.lower() and flood_displacement:
             template_df.loc[0, "Displacement"] = floodzone_population
             template_df.loc[1, "Displacement"] = int(floodzone_population * 0.4)
             template_df.loc[2, "Displacement"] = int(floodzone_population * 0.1)

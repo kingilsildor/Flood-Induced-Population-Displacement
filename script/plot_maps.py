@@ -1,9 +1,8 @@
 import contextily as ctx
 import geopandas as gpd
+import matplotlib
 import matplotlib.patheffects as path_effects
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-import matplotlib
 from shapely.geometry import LineString
 from src.get_files import get_locations, get_routes
 
@@ -31,18 +30,19 @@ def create_locations_gdf(locations_df) -> tuple:
     locations_gdf.set_crs(epsg=4326, inplace=True)
     location_dict = locations_gdf.set_index("#name")["geometry"].to_dict()
     locations_gdf = locations_gdf.to_crs(epsg=3857)
+    locations_gdf["location_type"] = locations_gdf["location_type"] + "s"
 
     location_type_colors = {
-        "flood_zone": "blue",
-        "town": "red",
-        "camp": "green",
-        "temple": "purple",
+        "flood_zones": "blue",
+        "towns": "red",
+        "camps": "green",
+        "temples": "purple",
     }
     locations_gdf["color"] = locations_gdf["location_type"].map(location_type_colors)
     # Overrite the camp location to display them as temples
     locations_gdf.loc[
         locations_gdf["#name"].str.contains("temple", case=False, na=False), "color"
-    ] = location_type_colors["temple"]
+    ] = location_type_colors["temples"]
 
     return locations_gdf, location_dict, location_type_colors
 
