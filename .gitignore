@@ -1,4 +1,5 @@
-*.csv
+# *.csv
+**/simulation_results
 **/.ipynb_checkpoints
 **/__pycache__
 # data/

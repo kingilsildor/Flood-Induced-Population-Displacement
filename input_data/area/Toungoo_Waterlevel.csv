@@ -1,0 +1,24 @@
+Date,Rivers,Stations,Danger level (CM),Water level at (12:30) hr (cm),Water level changes during last (24) hr (cm),Water level forecast at next (24) hrs (cm),Remarks,Day,Water Level Classification
+2024-09-08,Sittoung,Toungoo,600,564,-11,554,,08,0
+2024-09-09,Sittoung,Toungoo,600,549,-15,534,,09,0
+2024-09-10,Sittoung,Toungoo,600,552,3,562,,10,0
+2024-09-11,Sittoung,Toungoo,600,593,41,638,It may exceeded its above danger level during the next day,11,0
+2024-09-12,Sittoung,Toungoo,600,656,63,716,It may rise about 2 feet during the next 1 day and may remain above its danger level,12,1
+2024-09-13,Sittoung,Toungoo,600,735,79,825,It may rise about 3 feet during the next 1 day and may remain above its danger level,13,3
+2024-09-14,Sittoung,Toungoo,600,805,70,775,It may fall 1 foot during the next 1 day and may remain above its danger level,14,4
+2024-09-15,Sittoung,Toungoo,600,774,-31,734,It may fall 1.5 feet during the next 1 day and may remain above its danger level,15,3
+2024-09-16,Sittoung,Toungoo,600,744,-30,704,It may fall 1.5 feet during the next 1 day and may remain above its danger level,16,3
+2024-09-17,Sittoung,Toungoo,600,726,-18,714,It may fall 0.5 foot during the next 1 day and may remain above its danger level,17,2
+2024-09-18,Sittoung,Toungoo,600,716,-10,706,It may fall 0.5 foot during the next 1 day and may remain above its danger level,18,2
+2024-09-19,Sittoung,Toungoo,600,710,-6,703,It may fall 3 inches during the next 1 day and may remain above its danger level,19,2
+2024-09-20,Sittoung,Toungoo,600,700,-10,685,It may fall 0.5 foot during the next 1 day and may remain above its danger level,20,2
+2024-09-21,Sittoung,Toungoo,600,698,-2,693,It may fall 2 inches during the next 1 day and may remain above its danger level,21,2
+2024-09-22,Sittoung,Toungoo,600,692,-6,683,It may fall 4 inches during the next 1 day and may remain above its danger level,22,2
+2024-09-23,Sittoung,Toungoo,600,682,-10,672,It may fall 4 inches during the next 1 day and may remain above its danger level,23,2
+2024-09-24,Sittoung,Toungoo,600,667,-15,652,It may fall 0.5 foot during the next 1 day and may remain above its danger level,24,1
+2024-09-25,Sittoung,Toungoo,600,656,-11,644,It may fall 0.5 foot during the next 1 day and may remain above its danger level,25,1
+2024-09-26,Sittoung,Toungoo,600,640,-16,628,It may fall 0.5 foot during the next 1 day and may remain above its danger level,26,1
+2024-09-27,Sittoung,Toungoo,600,620,-20,606,It may fall the next 36 hours and may remain below its danger level,27,0
+2024-09-28,Sittoung,Toungoo,600,590,-30,578,It has fallen about 0.5 foot below its danger level,28,0
+2024-09-29,Sittoung,Toungoo,600,549,-41,529,,29,0
+2024-09-30,Sittoung,Toungoo,600,527,-22,507,,30,0
