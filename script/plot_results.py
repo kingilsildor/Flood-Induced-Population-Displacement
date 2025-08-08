@@ -131,6 +131,7 @@ def displacement_over_time(
     normalize: bool = False,
     show_plot: bool = False,
     results_dir: str = "plots",
+    name: str = None,
 ) -> None:
     """
     Plot the average number of displaced individuals over time.
@@ -145,6 +146,7 @@ def displacement_over_time(
     - normalize (bool): Whether to normalize the data. Default is False.
     - show_plot (bool): Whether to display the plot immediately. Default is False.
     - results_dir (str): Directory to save the plot PNG file. Default is "plots".
+    - name (str): Name for the plot file. If None, a default name will be generated.
 
     Returns:
     ---------
@@ -157,22 +159,23 @@ def displacement_over_time(
 
     for series, std, label in zip(refugee_series, refugee_std_series, series_labels):
         data = np.array(series)
-        std = np.array(std)
 
         max_val = data.max()
         if normalize and max_val != 0:
             data = data / max_val
 
-        ax.fill_between(
-            days,
-            data - std,
-            data + std,
-            alpha=0.2,
-        )
+        if std is not None:
+            std = np.array(std)
+            ax.fill_between(
+                days,
+                data - std,
+                data + std,
+                alpha=0.2,
+            )
         ax.plot(days, data, label=label)
 
-    ax.set_xticks(np.arange(len(daytick_labels)) + 0.5)
-    ax.set_xticklabels(daytick_labels, rotation=45)
+    ax.set_xticks(np.arange(len(daytick_labels)))
+    ax.set_xticklabels(daytick_labels, rotation=45, ha="right")
 
     ax.set_xlabel("Date")
     ax.set_ylabel(
@@ -187,7 +190,12 @@ def displacement_over_time(
     if show_plot:
         plt.show()
     else:
-        plt.savefig(f"{results_dir}/displacement_over_time_{plots}.png", dpi=300)
+        plt.savefig(
+            f"{results_dir}/displacement_over_time_{plots}.png"
+            if not name
+            else f"{results_dir}/displacement_over_time_{name}.png",
+            dpi=300,
+        )
         plt.close()
 
 

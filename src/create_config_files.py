@@ -205,8 +205,9 @@ def create_source_data_files(
         fraction_displaced_camp,
         population,
     )
+
     _create_source_data_files_for_locations(
-        camp_locations,
+        np.concatenate((camp_locations, temple_locations)),
         displacement_camp,
         displacement_temple,
         floodzone_population,
@@ -298,13 +299,13 @@ def _create_source_data_files_for_locations(
             data=[["2024-09-08", 0], ["2024-09-14", 0], ["2024-09-30", 0]],
         )
 
-        if "camps" in location.lower():
+        if "camp" in location.lower():
             template_df.loc[1, "Displacement"] = displacement_camp
             template_df.loc[2, "Displacement"] = int(
                 displacement_camp * fraction_stays_in_camp
             )
 
-        if "temples" in location.lower():
+        if "temple" in location.lower():
             template_df.loc[1, "Displacement"] = displacement_temple
             template_df.loc[2, "Displacement"] = int(
                 displacement_temple * fraction_stays_in_camp
